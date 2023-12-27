@@ -1,5 +1,6 @@
 
 import { initializeApp } from "firebase/app";
+import { collection, getFirestore } from "firebase/firestore"
 
 
 const firebaseConfig = {
@@ -13,3 +14,5 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app)
+const notesCollection = collection(db, "notes")
