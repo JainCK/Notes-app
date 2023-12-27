@@ -7,9 +7,8 @@ import { onSnapshot } from "firebase/firestore"
 import { notesCollection } from "./firebase"
 
 export default function App() {
-    const [notes, setNotes] = React.useState(
-        () => JSON.parse(localStorage.getItem("notes")) || []
-    )
+    const [notes, setNotes] = React.useState( [] )
+    
     const [currentNoteId, setCurrentNoteId] = React.useState(
         (notes[0]?.id) || ""
     )
@@ -18,12 +17,18 @@ export default function App() {
         notes.find(note => note.id === currentNoteId) 
         || notes[0]
 
-    React.useEffect(() => {
-       const unsubscribe = onSnapshot(notesCollection, () => {
 
+
+    React.useEffect(() => {
+       const unsubscribe = onSnapshot(notesCollection, (snapshot) => {
+        const notesArr = snapshot.docs.map(doc => ({
+            ...docs.data(),
+            id: doc.id
+        }))
        }) 
        return unsubscribe
     }, [])
+
 
     function createNewNote() {
         const newNote = {
@@ -33,6 +38,8 @@ export default function App() {
         setNotes(prevNotes => [newNote, ...prevNotes])
         setCurrentNoteId(newNote.id)
     }
+
+
 
     function updateNote(text) {
         setNotes(oldNotes => {
