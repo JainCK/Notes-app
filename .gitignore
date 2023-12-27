@@ -1,0 +1,23 @@
+# Dependencies
+/node_modules
+
+# Build output
+/build
+
+# Environment variables
+.env
+
+# Optional: Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional: Editor-specific files
+.idea
+.vscode
+
+# Optional: Testing files
+/coverage
+
+# Optional: Generated files (if applicable)
+*.map
